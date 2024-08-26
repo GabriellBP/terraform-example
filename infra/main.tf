@@ -24,5 +24,6 @@ resource "aws_security_group" "http_access" {
 resource "aws_instance" "terraform_example" {
   ami = "ami-0490fddec0cbeb88b"  # https://us-east-2.console.aws.amazon.com/ec2/home?region=us-east-2#AMICatalog:
   instance_type = "t2.nano"  # https://aws.amazon.com/ec2/instance-types/
-  vpc_security_group_ids = [ aws_security_group.http_access.id ]
+  user_data = file("start_docker.sh")
+  vpc_security_group_ids = [aws_security_group.http_access.id]
 }
