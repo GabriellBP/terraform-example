@@ -35,4 +35,11 @@ With Terraform, you can version your infrastructure, easily replicate environmen
    - On your local run the command: `aws configure`
    - Fill the fields with your recent user access keys
 10. Open the file `..../terraform-example/infra/start_docker.sh` and replace `gabriellbp/terraform-example` with your docker hub image `<your-docker-hub-username>/terraform-example`
+11. Run the command `terraform plan` (inside the folder `..../terraform-example/infra/`) and check all changes that will be applied to your infra
+12. Run the command `terraform apply` and write yes to confirm
+13. Check the ec2 instance created in your AWS account under the [instances page](https://us-east-2.console.aws.amazon.com/ec2/home?region=us-east-2#Instances:v=3;$case=tags:true%5C,client:false;$regex=tags:false%5C,client:false)
+14. Click in the created instance to see more details, copy the public ipv4 DNS in your browser or execute the command `curl <your-public-ipv4-DNS` to see the message: *Hello Terraform!*
+    - Rembember to use `http` and not `https`
+15. To Configure your SSH Access (Optional):
+    -  
  
