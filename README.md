@@ -19,7 +19,7 @@ With Terraform, you can version your infrastructure, easily replicate environmen
 5. Download [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 6. Clone the project e.g. `https://github.com/GabriellBP/terraform-example.git`
 7. Create Docker Image and publish it to the Docker Hub:
-   - Go to `..../terraform-example/app/`
+   - Go to `terraform-example/app/`
    - Run the command: `./mvnw install`
    - Update the Dockerfile if necessary with a different Java version and a different jar name (line 3: target/app-0.0.1-SNAPSHOT.jar)
    - Run the command: `docker build -t <your-docker-hub-username>/terraform-example:latest --push .`
@@ -34,12 +34,30 @@ With Terraform, you can version your infrastructure, easily replicate environmen
 9. Connect local AWS CLI with remote AWS Account
    - On your local run the command: `aws configure`
    - Fill the fields with your recent user access keys
-10. Open the file `..../terraform-example/infra/start_docker.sh` and replace `gabriellbp/terraform-example` with your docker hub image `<your-docker-hub-username>/terraform-example`
-11. Run the command `terraform plan` (inside the folder `..../terraform-example/infra/`) and check all changes that will be applied to your infra
-12. Run the command `terraform apply` and write yes to confirm
-13. Check the ec2 instance created in your AWS account under the [instances page](https://us-east-2.console.aws.amazon.com/ec2/home?region=us-east-2#Instances:v=3;$case=tags:true%5C,client:false;$regex=tags:false%5C,client:false)
-14. Click in the created instance to see more details, copy the public ipv4 DNS in your browser or execute the command `curl <your-public-ipv4-DNS` to see the message: *Hello Terraform!*
+10. Open the file `terraform-example/infra/start_docker.sh` and replace `gabriellbp/terraform-example` with your docker hub image `<your-docker-hub-username>/terraform-example`
+11. Run the command `terraform init` (inside the folder `terraform-example/infra/`) 
+12. Run the command `terraform plan` and check all changes that will be applied to your infra
+13. Run the command `terraform apply` and write yes to confirm
+    - if you get an error about the resource `keypai` you can delete it from the `terraform-example/infra/main.tf` file or jump to step 15 (configure you ssh access) before apply the terraform changes and create your infra
+14. Check the ec2 instance created in your AWS account under the [instances page](https://us-east-2.console.aws.amazon.com/ec2/home?region=us-east-2#Instances:v=3;$case=tags:true%5C,client:false;$regex=tags:false%5C,client:false)
+15. Click in the created instance to see more details, copy the public ipv4 DNS in your browser or execute the command `curl <your-public-ipv4-DNS` to see the message: *Hello Terraform!*
     - Rembember to use `http` and not `https`
-15. To Configure your SSH Access (Optional):
-    -  
+16. To Configure your SSH Access (Optional):
+    -  Run the command `ssh-keygen` (check [this](https://phoenixnap.com/kb/generate-ssh-key-windows-10) for windows systems)
+    -  Open the file `terraform-example/infra/main.tf` and replace in the line 33 the command `file("~/.ssh/id_ed25519.pub")` using your public key address
+    -  run the command `terraform apply`
+    -  You can check the key  pair created on your Amazon Clound account under the page `Key Pairs`
+    -  To access the remote machine you can run the command `ssh ec2-user@<your-public-ipv4-DNS>`
+17. To clean your environment and destroy your infra you can simply run the command `terraform destroy` under the `terraform-example/infra/` folder
+    - Confirm everything and then write yes in the command line
+   
+
+## Technologies
+* Terraform
+* Docker
+* Java
+* Spring
+* AWS
+* AWS EC2
+* SSH access
  
