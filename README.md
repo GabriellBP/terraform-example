@@ -30,7 +30,7 @@ With Terraform, you can version your infrastructure, easily replicate environmen
 8. Grant programmatic access
    - Go to you AWS Account and create an AWS User in the IAM (Identity and Access Management) dashboard
    - I added an Administrator Access policy for this example although it is not recommended, to make it easier - _If you create an Administrator with full access rights, remember to delete it after you run this example_
-   - Save the access keys
+   - Create and save the access keys (Local code)
 9. Connect local AWS CLI with remote AWS Account
    - On your local run the command: `aws configure`
    - Fill the fields with your recent user access keys
@@ -38,7 +38,7 @@ With Terraform, you can version your infrastructure, easily replicate environmen
 11. Run the command `terraform init` (inside the folder `terraform-example/infra/`) 
 12. Run the command `terraform plan` and check all changes that will be applied to your infra
 13. Run the command `terraform apply` and write yes to confirm
-    - if you get an error about the resource `keypai` you can delete it from the `terraform-example/infra/main.tf` file or jump to step 15 (configure you ssh access) before apply the terraform changes and create your infra
+    - if you get an error about the resource `keypair` you can delete it from the `terraform-example/infra/main.tf` file or jump to step 15 (configure you ssh access) before apply the terraform changes and create your infra
 14. Check the ec2 instance created in your AWS account under the [instances page](https://us-east-2.console.aws.amazon.com/ec2/home?region=us-east-2#Instances:v=3;$case=tags:true%5C,client:false;$regex=tags:false%5C,client:false)
 15. Click in the created instance to see more details, copy the public ipv4 DNS in your browser or execute the command `curl <your-public-ipv4-DNS` to see the message: *Hello Terraform!*
     - Rembember to use `http` and not `https`
